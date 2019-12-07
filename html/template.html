@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Title of the document</title>
+<script src="JsBarcode.all.min.js"></script>
+</head>
+
+<style>
+.content {
+  max-width: 500px;
+  margin: auto;
+  background-color: white;
+  border: 3px solid black;
+}
+
+.center {
+  text-align: center;
+}
+</style>
+<!-- https://stackoverflow.com/questions/10042388/program-that-convert-html-to-image -->
+<body>
+
+	<div class="content">
+		<div class="center">
+			Impex-Trading
+			<br>
+			<svg id="barcode"></svg>
+			<br>
+
+		</div>
+		<table>
+			<tr>
+				<td>Name</td>
+				<td>NAME</td>
+			</tr>
+			<tr>
+				<td>Amount</td>
+				<td>AMOUNT</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+	
+	<script>
+    JsBarcode("#barcode", "BARCODE", {
+  		height: 40
+	});
+  </script>
+	
+
+</html>
