@@ -7,20 +7,23 @@
 </head>
 
 <style>
+
+@font-face { font-family: DejaVu; src: url('DejaVuSansMono.ttf'); } 
+
 .content {
   max-width: 500px;
   margin: auto;
   background-color: white;
   border: 3px solid black;
+  font-family: DejaVu;
+
 }
 
 .center {
   text-align: center;
 }
 </style>
-<!-- https://stackoverflow.com/questions/10042388/program-that-convert-html-to-image
-https://lindell.me/JsBarcode/
--->
+<!-- https://stackoverflow.com/questions/10042388/program-that-convert-html-to-image -->
 <body>
 
 	<div class="content">
@@ -34,11 +37,11 @@ https://lindell.me/JsBarcode/
 		<table>
 			<tr>
 				<td>Name</td>
-				<td>lakösdfjöla</td>
+				<td>myname</td>
 			</tr>
 			<tr>
 				<td>Amount</td>
-				<td>19</td>
+				<td>10</td>
 			</tr>
 		</table>
 
@@ -46,8 +49,9 @@ https://lindell.me/JsBarcode/
 </body>
 	
 	<script>
-    JsBarcode("#barcode", "412qwerqwr", {
-  		height: 40
+    JsBarcode("#barcode", "12345", {
+  		height: 40,
+		font: "DejaVu"
 	});
   </script>
 	

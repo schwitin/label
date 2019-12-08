@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // https://www.npmjs.com/package/node-static
 // https://nodejs.org/en/knowledge/HTTP/servers/how-to-serve-static-files/
 // https://stackoverflow.com/questions/44647778/how-to-run-shell-script-file-using-nodejs
@@ -27,6 +29,6 @@ http.createServer(function (req, res) {
    }).resume();
 
 
-}).listen(8080);
+}).listen(8181);
 
 

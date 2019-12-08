@@ -3,6 +3,8 @@
 # https://phantomjs.org/examples
 # https://pypi.org/project/brother-ql/
 
+QT_QPA_PLATFORM=offscreen
+
 cp template.html index.html
 echo $1 $2 $3
 sed -i  "s/BARCODE/$1/g" index.html

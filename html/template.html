@@ -7,11 +7,16 @@
 </head>
 
 <style>
+
+@font-face { font-family: DejaVu; src: url('DejaVuSansMono.ttf'); } 
+
 .content {
   max-width: 500px;
   margin: auto;
   background-color: white;
   border: 3px solid black;
+  font-family: DejaVu;
+
 }
 
 .center {
@@ -45,7 +50,8 @@
 	
 	<script>
     JsBarcode("#barcode", "BARCODE", {
-  		height: 40
+  		height: 40,
+		font: "DejaVu"
 	});
   </script>
 	
