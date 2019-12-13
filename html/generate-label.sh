@@ -13,4 +13,3 @@ sed -i  "s/AMOUNT/$3/g" index.html
 sed -i  "s/ME/$4/g" index.html
 
 phantomjs rasterize.js file://`pwd`/index.html index.png 696px*300px
-
