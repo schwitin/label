@@ -6,10 +6,11 @@
 QT_QPA_PLATFORM=offscreen
 
 cp template.html index.html
-echo $1 $2 $3
+echo $1 $2 $3 $4
 sed -i  "s/BARCODE/$1/g" index.html
 sed -i  "s/NAME/$2/g" index.html
 sed -i  "s/AMOUNT/$3/g" index.html
+sed -i  "s/ME/$4/g" index.html
 
-phantomjs rasterize.js file://`pwd`/index.html index.png 696px*171px
+phantomjs rasterize.js file://`pwd`/index.html index.png 696px*300px
 

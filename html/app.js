@@ -20,8 +20,9 @@ http.createServer(function (req, res) {
   if (queryObject.barcode
     && queryObject.name
     && queryObject.amount
+    && queryObject.me
   ){
-    shell.exec('./generate-label.sh ' + queryObject.barcode + ' '  + queryObject.name + ' ' + queryObject.amount)
+    shell.exec('./generate-label.sh ' + queryObject.barcode + ' '  + queryObject.name + ' ' + queryObject.amount + ' ' + queryObject.me)
    }
 
    req.addListener('end', function () {
