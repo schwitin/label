@@ -11,10 +11,10 @@
 @font-face { font-family: DejaVu; src: url('DejaVuSansMono.ttf'); } 
 
 .content {
-  max-width: 500px;
+  max-width: 696px;
   margin: auto;
   background-color: white;
-  border: 3px solid black;
+  border: 1px solid black;
   font-family: DejaVu;
 
 }
@@ -26,6 +26,29 @@
 <!-- https://stackoverflow.com/questions/10042388/program-that-convert-html-to-image -->
 <body>
 
+<div class="content">
+<table>
+<tbody>
+<tr>
+<td style="margin: 1px" rowspan="2"><img src="logo.png"></td>
+<td style="text-align: center" colspan="3"><img src="impex-trading.png"></td>
+</tr>
+<tr>
+<td style="width: 500px;  text-align: left;">ARTIKELNUMMER</td>
+<td style="text-align: right;">AMOUNT</td>
+<td >St.</td>
+</tr>
+<tr>
+<td style="text-align: center;" colspan="4">NAME</td>
+</tr>
+<tr>
+<td style="text-align: center;" colspan="4"><svg id="barcode"></svg></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!--
 	<div class="content">
 		<div class="center">
 			Impex-Trading
@@ -46,12 +69,19 @@
 		</table>
 
 	</div>
+	-->
+	
+	
+	
+	
+	
 </body>
 	
 	<script>
     JsBarcode("#barcode", "BARCODE", {
   		height: 40,
-		font: "DejaVu"
+		font: "DejaVu",
+		displayValue: false
 	});
   </script>
 	
