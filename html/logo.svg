@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -40,7 +41,7 @@
      id="namedview3916"
      showgrid="false"
      inkscape:zoom="0.43875203"
-     inkscape:cx="1332.0062"
+     inkscape:cx="1336.5646"
      inkscape:cy="-190.91058"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -52,6 +53,14 @@
      fit-margin-bottom="0" />
   <defs
      id="defs3908">
+    <linearGradient
+       id="linearGradient869"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop867" />
+    </linearGradient>
     <pattern
        id="EMFhbasepattern"
        patternUnits="userSpaceOnUse"
@@ -59,6 +68,124 @@
        height="6"
        x="0"
        y="0" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient869"
+       id="linearGradient871"
+       x1="0"
+       y1="91.995216"
+       x2="174.71094"
+       y2="91.995216"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Tritone"
+       id="filter909">
+      <feColorMatrix
+         type="hueRotate"
+         values="0"
+         result="colormatrix1"
+         id="feColorMatrix873" />
+      <feColorMatrix
+         in="colormatrix1"
+         type="matrix"
+         values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1 "
+         result="colormatrix2"
+         id="feColorMatrix875" />
+      <feColorMatrix
+         in="colormatrix1"
+         type="matrix"
+         values="0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 "
+         result="colormatrix3"
+         id="feColorMatrix877" />
+      <feColorMatrix
+         in="colormatrix1"
+         type="matrix"
+         values="0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 1 "
+         result="colormatrix4"
+         id="feColorMatrix879" />
+      <feBlend
+         in="colormatrix2"
+         in2="colormatrix3"
+         mode="darken"
+         result="blend1"
+         id="feBlend881" />
+      <feBlend
+         in="blend1"
+         in2="colormatrix4"
+         mode="darken"
+         result="blend2"
+         id="feBlend883" />
+      <feBlend
+         in="colormatrix2"
+         in2="colormatrix3"
+         mode="lighten"
+         result="blend3"
+         id="feBlend885" />
+      <feBlend
+         in="blend3"
+         in2="colormatrix4"
+         mode="lighten"
+         result="blend4"
+         id="feBlend887" />
+      <feComponentTransfer
+         in="blend4"
+         result="componentTransfer"
+         id="feComponentTransfer891">
+        <feFuncR
+           type="linear"
+           slope="0"
+           id="feFuncR889" />
+      </feComponentTransfer>
+      <feBlend
+         in="blend2"
+         in2="componentTransfer"
+         mode="lighten"
+         result="blend5"
+         id="feBlend893" />
+      <feColorMatrix
+         in="blend5"
+         type="matrix"
+         values="-1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 0 0 0 1 "
+         result="colormatrix5"
+         id="feColorMatrix895" />
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood897" />
+      <feComposite
+         in="colormatrix5"
+         in2="flood"
+         operator="arithmetic"
+         k1="1"
+         result="composite1"
+         id="feComposite899" />
+      <feGaussianBlur
+         stdDeviation="0.01"
+         result="blur"
+         id="feGaussianBlur901" />
+      <feBlend
+         in2="blur"
+         mode="normal"
+         result="blend6"
+         id="feBlend903" />
+      <feComposite
+         in="blend2"
+         in2="blend6"
+         operator="arithmetic"
+         k1="0"
+         k2="1"
+         k3="1"
+         k4="0"
+         result="composite2"
+         id="feComposite905" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         result="composite3"
+         id="feComposite907" />
+    </filter>
   </defs>
   <path
      style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
@@ -72,5 +199,6 @@
      height="183.99043"
      width="174.71094"
      preserveAspectRatio="none"
-     id="image3912" />
+     id="image3912"
+     style="fill:#000000;stroke:url(#linearGradient871);stroke-opacity:1;filter:url(#filter909)" />
 </svg>
