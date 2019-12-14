@@ -22,7 +22,12 @@ http.createServer(function (req, res) {
     && queryObject.amount
     && queryObject.me
   ){
-    shell.exec('./generate-label.sh ' + queryObject.barcode + ' '  + queryObject.name + ' ' + queryObject.amount + ' ' + queryObject.me)
+     const command ='./generate-label.sh "' + queryObject.barcode + '" "'  + queryObject.name + '" "' + queryObject.amount + '" "' + queryObject.me + '" "' + queryObject.etiketten + '"'
+     console.log(command)
+     shell.exec(command)
+
+ 
+//    shell.exec('./generate-label.sh ' + queryObject.barcode + ' '  + queryObject.name + ' ' + queryObject.amount + ' ' + queryObject.me + ' ' + queryObject.etiketten)
    }
 
    req.addListener('end', function () {
