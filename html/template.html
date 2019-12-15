@@ -11,7 +11,7 @@
 @font-face { font-family: DejaVu; src: url('DejaVuSans.ttf'); } 
 
 .content {
-  max-width: 696px;
+  max-width: 690px;
   margin: auto;
   background-color: white;
   border: 0px solid black;
@@ -20,8 +20,27 @@
 
 }
 
+.large-font{
+  font-size: 35px;
+}
+
 .center {
   text-align: center;
+}
+
+
+td.fitwidth {
+    width: 1px;
+    white-space: nowrap;
+}
+
+table, th, td {
+  border: 0px solid black;
+}
+
+th, td {
+  padding: 0px;
+  margin: 0px;
 }
 
 
@@ -30,19 +49,19 @@
 <body>
 
 <div class="content">
-	<table style="width: 696px" border="1">
+	<table >
 		<tbody>
 			<tr>
-				<td style="text-align: center; vertical-align: top; width: 120px" rowspan="2"><img src="logo1.png" width="120px"></td>
-				<td style="text-align: center; vertical-align: top;" colspan="3"><img src="impex-trading.svg" width="470px"></td>
+				<td style="text-align: center; vertical-align: top; width: 120px" rowspan="2"><img src="logo1.png" width="108px" height="133px"></td>
+				<td style="text-align: center; vertical-align: top;" colspan="3"><img src="impex-trading.svg" width="440px"></td>
 			</tr>
 			<tr>
-				<td style="text-align: center; vertical-align: middle;" colspan="3">NAME</td>
+				<td style="text-align: center; vertical-align: middle;" colspan="3" nowrap>NAME</td>
 			</tr>
-			<tr style="text-align: right;">
-				<td colspan="2">BARCODE</td>
-				<td style="width: 1px;">-AMOUNT</td>
-				<td style="width: 1px;">ME</td>
+			<tr class="large-font" style="text-align: right;">
+				<td  colspan="2" >BARCODE</td>
+				<td class="fitwidth">-AMOUNT</td>
+				<td class="fitwidth">ME&nbsp;</td>
 			</tr>
 			<tr style="text-align: center;">
 				<td colspan="4"><svg id="barcode"></svg></td>
@@ -87,7 +106,7 @@
 	
 	<script>
     JsBarcode("#barcode", "BARCODE", {
-  		height: 80,
+  		height: 42,
   		width: 3,
 		font: "DejaVu",
 		displayValue: false
