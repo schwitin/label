@@ -21,7 +21,7 @@
 }
 
 .large-font{
-  font-size: 35px;
+  font-size: 32px;
 }
 
 .center {
@@ -52,15 +52,15 @@ th, td {
 	<table >
 		<tbody>
 			<tr>
-				<td style="text-align: center; vertical-align: top; width: 120px" rowspan="2"><img src="logo1.png" width="108px" height="133px"></td>
-				<td style="text-align: center; vertical-align: top;" colspan="3"><img src="impex-trading.svg" width="440px"></td>
+				<td class="fitwidth" style="text-align: center; vertical-align: top;" rowspan="2"><img src="logo1.png" width="108px" height="133px"></td>
+				<td class="fitwidth" style="text-align: center; vertical-align: top;" colspan="3"><img src="impex-trading.svg" width="440px"></td>
 			</tr>
 			<tr>
 				<td style="text-align: center; vertical-align: middle;" colspan="3" nowrap>NAME</td>
 			</tr>
 			<tr class="large-font" style="text-align: right;">
-				<td  colspan="2" >BARCODE</td>
-				<td class="fitwidth">-AMOUNT</td>
+				<td colspan="2">ARTIKELNR</td>
+				<td class="fitwidth">-MENGE</td>
 				<td class="fitwidth">ME&nbsp;</td>
 			</tr>
 			<tr style="text-align: center;">
@@ -69,45 +69,13 @@ th, td {
 		</tbody>
 	</table>
 </div>
-
-
-
-
-
-
-
-
-<!--
-
-<div class="content">
-	<table style="width: 696px">
-		<tbody>
-			<tr>
-				<td style="width: 130px; height: 134px" rowspan="2"><img src="logo1.png" width="130" height="134"></td>
-				<td style="text-align: center" colspan="3"><img src="impex-trading.svg" width="405" height="78"></td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">BARCODE</td>
-				<td style="text-align: right;">AMOUNT</td>
-				<td >ME</td>
-			</tr>
-			<tr>
-				<td style="text-align: center;" colspan="4">NAME</td>
-			</tr>
-			<tr>
-				<td style="text-align: center;" colspan="4"><svg id="barcode"></svg></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
--->
 	
 </body>
 	
 	<script>
     JsBarcode("#barcode", "BARCODE", {
   		height: 42,
-  		width: 3,
+  		width: 2,
 		font: "DejaVu",
 		displayValue: false
 	});

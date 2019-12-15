@@ -18,16 +18,15 @@ http.createServer(function (req, res) {
 
 
   if (queryObject.barcode
+    && queryObject.artikelnr
     && queryObject.name
-    && queryObject.amount
+    && queryObject.menge
     && queryObject.me
+    && queryObject.etiketten
   ){
-     const command ='./generate-label.sh "' + queryObject.barcode + '" "'  + queryObject.name + '" "' + queryObject.amount + '" "' + queryObject.me + '" "' + queryObject.etiketten + '"'
+     const command ='./generate-label.sh "' + queryObject.barcode + '" "' + queryObject.artikelnr + '" "'  + queryObject.name + '" "' + queryObject.menge + '" "' + queryObject.me + '" "' + queryObject.etiketten + '"'
      console.log(command)
-     shell.exec(command)
-
- 
-//    shell.exec('./generate-label.sh ' + queryObject.barcode + ' '  + queryObject.name + ' ' + queryObject.amount + ' ' + queryObject.me + ' ' + queryObject.etiketten)
+     shell.exec(command) 
    }
 
    req.addListener('end', function () {
@@ -36,5 +35,3 @@ http.createServer(function (req, res) {
 
 
 }).listen(8181);
-
-
