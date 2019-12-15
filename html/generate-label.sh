@@ -12,7 +12,7 @@ export BROTHER_QL_PRINTER=tcp://BRW105BAD1C7BB8.local
 cp template.html index.html
 
 # Zu lange String abschneiden
-BARCODE=$(echo $1 | colrm 15)
+BARCODE=$(echo $1 | colrm 17)
 NAME=$(echo $2 | colrm 28)
 AMOUNT=$(echo $3 | colrm 6)
 ME=$(echo $4 | colrm 4)
