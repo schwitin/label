@@ -35,11 +35,12 @@ echo "ETIKETTEN=$ETIKETTEN"
 sed -e  "s/BARCODE/$BARCODE/g" -e "s/ARTIKELNR/$ARTIKELNR/g" -e "s/NAME/$NAME/g" -e "s/MENGE/$MENGE/g" -e "s/ME/$ME/g" template.html > index.html
 
 # html2png
-phantomjs rasterize.js file://`pwd`/index.html index.png  696px*271px
+phantomjs rasterize.js file://`pwd`/index.html index1.png  706px*291px
+convert index1.png -trim index.png
 
 # print
 for (( i = 0; i < $ETIKETTEN; i++ )) 
 do
-  # echo $i
+  #echo $i
   /home/stalker/.local/bin/brother_ql print -l62 --red index.png
 done
