@@ -35,8 +35,7 @@ echo "ETIKETTEN=$ETIKETTEN"
 sed -e  "s/BARCODE/$BARCODE/g" -e "s/ARTIKELNR/$ARTIKELNR/g" -e "s/NAME/$NAME/g" -e "s/MENGE/$MENGE/g" -e "s/ME/$ME/g" template.html > index.html
 
 # html2png
-phantomjs rasterize.js file://`pwd`/index.html index1.png  706px*291px
-convert index1.png -trim index.png
+phantomjs rasterize.js file://`pwd`/index.html index.png  696px*271px
 
 # print
 for (( i = 0; i < $ETIKETTEN; i++ )) 
