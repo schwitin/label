@@ -11,7 +11,7 @@
 @font-face { font-family: DejaVu; src: url('DejaVuSans-Bold.ttf'); } 
 
 .content {
-  max-width: 706px;
+  max-width: 696px;
   margin: auto;
   background-color: white;
   border: 0px solid black;
@@ -20,8 +20,12 @@
 
 }
 
+body{
+	margin: 0;
+}
+
 .large-font{
-  font-size: 32px;
+  font-size: 35px;
 }
 
 .center {
@@ -56,7 +60,7 @@ th, td {
 	<table >
 		<tbody>
 			<tr>
-				<td class="fitwidth" style="text-align: center; vertical-align: top;" rowspan="2"><img src="logo1.png" width="108px" height="133px"></td>
+				<td class="fitwidth" style="text-align: center; vertical-align: top;" rowspan="2"><img src="logo.png" width="108px" height="133px"></td>
 				<td class="fitwidth impex" style="vertical-align: top; text-align center;" colspan="3"><img src="impex-trading.svg" width="440px"></td>
 			</tr>
 			<tr>
@@ -78,7 +82,7 @@ th, td {
 	
 	<script>
     JsBarcode("#barcode", "BARCODE", {
-  		height: 80,
+  		height: 70,
   		margin: 0,
   		width: 2,
 		font: "DejaVu",
