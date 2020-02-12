@@ -32,7 +32,7 @@ echo "ETIKETTEN=$ETIKETTEN"
 # ETIKETTEN=$5
 
 # Platzhalter in HTML eresetzen
-sed -e  "s/BARCODE/$BARCODE/g" -e "s/ARTIKELNR/$ARTIKELNR/g" -e "s/NAME/$NAME/g" -e "s/MENGE/$MENGE/g" -e "s/ME/$ME/g" template.html > index.html
+sed -e  "s/=BARCODE=/$BARCODE/g" -e "s/=ARTIKELNR=/$ARTIKELNR/g" -e "s/=NAME=/$NAME/g" -e "s/=MENGE=/$MENGE/g" -e "s/=ME=/$ME/g" template.html > index.html
 
 # html2png
 phantomjs rasterize.js file://`pwd`/index.html index.png  696px*271px
