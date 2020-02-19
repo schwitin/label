@@ -14,7 +14,7 @@ export BROTHER_QL_PRINTER=tcp://192.168.2.116
 BARCODE=$(echo $1 | colrm 18)
 ARTIKELNR=$(echo $2 | colrm 18)
 NAME=$(echo $3 | colrm 19)
-MENGE=$(echo $4 | colrm 4)
+MENGE=$(echo $4 | colrm 5)
 ME=$(echo $5 | colrm 4)
 ETIKETTEN=$(echo $6 | colrm 3)
 
