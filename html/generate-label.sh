@@ -6,7 +6,8 @@
 # Damit phantomjs ohne X läuft
 export QT_QPA_PLATFORM=offscreen
 export BROTHER_QL_MODEL=QL-820NWB
-export BROTHER_QL_PRINTER=tcp://BRW105BAD1C7BB8.local
+# export BROTHER_QL_PRINTER=tcp://BRW105BAD1C7BB8.local
+export BROTHER_QL_PRINTER=tcp://192.168.2.116
 
 
 # Zu lange String abschneiden
