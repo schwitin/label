@@ -24,7 +24,8 @@ http.createServer(function (req, res) {
     && queryObject.me
     && queryObject.etiketten
   ){
-     const command ='./generate-label.sh "' + queryObject.barcode + '" "' + queryObject.artikelnr + '" "'  + queryObject.name + '" "' + queryObject.menge + '" "' + queryObject.me + '" "' + queryObject.etiketten + '"'
+     const name = queryObject.name.replace("&", "\\&").replace("\"", "\\\"");
+     const command ='./generate-label.sh "' + queryObject.barcode + '" "' + queryObject.artikelnr + '" "'  + name + '" "' + queryObject.menge + '" "' + queryObject.me + '" "' + queryObject.etiketten + '"'
      console.log(command)
      shell.exec(command) 
    }
