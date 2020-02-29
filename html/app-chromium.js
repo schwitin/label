@@ -11,25 +11,27 @@ const url = require('url');
 const shell = require('shelljs')
 const static = require('node-static');
 
-// phantomjs
-// sudo npm -i --save file-url
-// var fileUrl = require('file-url');
-// console.log(fileUrl('template.html'));
+const indexUrl = 'file:///home/stalker/Development/etikett/html/index.html';
+
+const puppeteer = require('puppeteer-core');
 
 
 var file = new(static.Server)();
 
 var queryObjects = [];
 
+let page;
+startBrowser();
+// console.log(page);
+  
+
 // Wir starten die Endlosschleife, die 
 // alle angekommenen Aufträge druckt
 printIncoming();
-var isPrinting = false;
-var log = '';
 
 
 http.createServer(function (req, res) {
-  const queryObject = url.parse(req.url,true).query; 
+  const queryObject = url.parse(req.url,true).query;  
   
   if (queryObject.barcode
     && queryObject.artikelnr
@@ -51,11 +53,6 @@ http.createServer(function (req, res) {
       // HTTP 200 zurück. 
       queryObjects.push(queryObject);
       res.writeHead(200, {'Content-Type': 'text/html'});
-      if(queryObject.log){
-        res.write(log);
-      }else{
-        log = '';
-      }
       res.end();
     }
   }else{
@@ -67,30 +64,39 @@ http.createServer(function (req, res) {
 
 
 async function printIncoming(){
-  while(true){
-    await sleep(500);
-    if (isPrinting){
-      continue;
-    }
-    const queryObject = queryObjects.shift();
-    if (queryObject){
+  while(true){ 
+    for (var i = 0; i < queryObjects.length; i++) {
+      let queryObject = queryObjects[i];
+      queryObjects.shift();
       print(queryObject);
-    }    
+      await sleep(3000);
+    }
+    await sleep(500);
   }
+}
+
+async function startBrowser(){
+  const browser = await puppeteer.launch({executablePath: '/usr/bin/chromium'});
+  page = await browser.newPage();
+  console.log(page);
+  // return page;
+  // await page.goto(indexUrl);
+}
+
+async function html2png(){
+  console.time("html2png");
+  await page.goto(indexUrl);
+  await page.screenshot({path: 'screenshot.png'});
+  console.timeEnd("html2png");
 }
 
 
 function print(queryObject){    
   const name = queryObject.name.replace("&", "\\&").replace("\"", "\\\"");
   const command ='./generate-label.sh "' + queryObject.barcode + '" "' + queryObject.artikelnr + '" "'  + name + '" "' + queryObject.menge + '" "' + queryObject.me + '" "' + queryObject.etiketten + '"'
-  isPrinting = true;
-  shell.exec(command,  {silent:true}, function(code, stdout, stderr) {
-    log = log.concat('<br>======= COMMAND =============<br>').concat(command).replace(/(?:\r\n|\r|\n)/g, '<br>');
-    log = log.concat('<br>======= EXITCODE ============<br>').concat(code).replace(/(?:\r\n|\r|\n)/g, '<br>');
-    log = log.concat('<br>======= STDOUT ==============<br>').concat(stdout).replace(/(?:\r\n|\r|\n)/g, '<br>');
-    log = log.concat('<br>======= STDERR ==============<br>').concat(stderr).replace(/(?:\r\n|\r|\n)/g, '<br>');    
-    isPrinting = false;
-  });
+  console.log(command)
+  shell.exec(command)
+  html2png();
 }
 
 
