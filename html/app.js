@@ -40,8 +40,7 @@ http.createServer(function (req, res) {
   ){    
     if (queryObject.debug){
       // wir drucken den aktuellen Auftrag
-      // und geben die in der URL angeforderte Datei zurück
-      // Der Browser wartet bis der Auftrag fertig ist.
+      // und geben die im vorherigen Request generierte Datei zurück
       print(queryObject);
       req.addListener('end', function () {
         file.serve(req, res);
@@ -80,8 +79,8 @@ async function printIncoming(){
 }
 
 
-function print(queryObject){    
-  const name = queryObject.name.replace("&", "\\&").replace("\"", "\\\"");
+function print(queryObject){
+  const name = queryObject.name.split("&").join("\\&").split("\"").join("\\\"");
   const command ='./generate-label.sh "' + queryObject.barcode + '" "' + queryObject.artikelnr + '" "'  + name + '" "' + queryObject.menge + '" "' + queryObject.me + '" "' + queryObject.etiketten + '"'
   isPrinting = true;
   shell.exec(command,  {silent:true}, function(code, stdout, stderr) {
