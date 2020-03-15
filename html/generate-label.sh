@@ -3,6 +3,10 @@
 # https://phantomjs.org/examples
 # https://pypi.org/project/brother-ql/
 
+# Beispiel-Aufruf
+# curl 'http://localhost:8181/index.png?barcode=AbCdEfGHIJKLMNOPQRSTUFZFGlasdjkfl%C3%B6&artikelnr=WWWWWWWW&name=WWWWW&menge=9991&me=St.&etiketten=1'
+
+
 # Damit phantomjs ohne X läuft
 export QT_QPA_PLATFORM=offscreen
 # https://forum.qt.io/topic/75145/cross-compile-qt-5-7-for-raspberry-pi-3-problem-font-text-words-in-application-not-showing-up-during-running/13
@@ -13,7 +17,7 @@ export BROTHER_QL_PRINTER=tcp://BRW105BAD1C7BB8.local
 # 192.168.1.27
 # 192.168.1.24
 
-# Zu lange String abschneiden
+echo $(date +"%T.%3N") "Zu lange Strings abschneiden"
 BARCODE=$(echo $1 | colrm 18)
 ARTIKELNR=$(echo $2 | colrm 18)
 NAME=$(echo $3 | colrm 19)
@@ -29,10 +33,9 @@ echo "ME=$ME"
 echo "ETIKETTEN=$ETIKETTEN"
 
 
-# Platzhalter in HTML eresetzen
+echo $(date +"%T.%3N") "Platzhalter in HTML eresetzen"
 sed -e  "s^=BARCODE=^$BARCODE^g" -e "s^=ARTIKELNR=^$ARTIKELNR^g" -e "s^=NAME=^$NAME^g" -e "s^=MENGE=^$MENGE^g" -e "s^=ME=^$ME^g" template.html > index.html
 
-# html2png
 echo $(date +"%T.%3N") "html2png"
 # phantomjs rasterize.js file://`pwd`/index.html index.png  696px*271px
 # chromium --headless --disable-gpu --screenshot=index.png --window-size=696,271 file://`pwd`/index.html
@@ -41,6 +44,8 @@ wkhtmltoimage  --width 696 --height 271 file://`pwd`/index.html index.png
 # print
 for (( i = 0; i < $ETIKETTEN; i++ )) 
 do
-  # echo $i
+  echo $(date +"%T.%3N") "Drucke" $i   
   /home/stalker/.local/bin/brother_ql print -l62 --red index.png
 done
+
+echo $(date +"%T.%3N") "Ende"
