@@ -45,7 +45,7 @@ wkhtmltoimage  --width 696 --height 271 file://`pwd`/index.html index.png
 for (( i = 0; i < $ETIKETTEN; i++ )) 
 do
   echo $(date +"%T.%3N") "Drucke" $i   
-  /home/stalker/.local/bin/brother_ql print -l62 --red index.png &
+  /home/stalker/.local/bin/brother_ql print -l62 --red index.png
 done
 
 echo $(date +"%T.%3N") "Ende"
