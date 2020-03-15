@@ -3,6 +3,10 @@
 # https://phantomjs.org/examples
 # https://pypi.org/project/brother-ql/
 
+# Beispiel-Aufruf
+# curl 'http://localhost:8181/index.png?barcode=AbCdEfGHIJKLMNOPQRSTUFZFGlasdjkfl%C3%B6&artikelnr=WWWWWWWW&name=WWWWW&menge=9991&me=St.&etiketten=1'
+
+
 # Damit phantomjs ohne X läuft
 export QT_QPA_PLATFORM=offscreen
 # https://forum.qt.io/topic/75145/cross-compile-qt-5-7-for-raspberry-pi-3-problem-font-text-words-in-application-not-showing-up-during-running/13
