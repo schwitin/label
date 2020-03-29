@@ -9,9 +9,9 @@ http://beaglebone.local:8181/index.png?barcode=<BARCODE>&artikelnr=<ARTIKELNR>&n
 
 | Parameter | Anzahl Zeichen | Bemerkung     |
 |-----------|----------------|---------------|
-| barcode   | 17             | CODE128       |
-| artikelnr | 17             |               |
-| menge     | 3              | Positive Zahl |
+| barcode   | 16             | CODE128       |
+| artikelnr | 16             |               |
+| menge     | 5              | Positive Zahl |
 | name      | 18             | UTF-8         |
 | me        | 3              | Mengeneinheit |
 | etiketten | 2              | 1-99          |

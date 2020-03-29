@@ -18,10 +18,10 @@ export BROTHER_QL_PRINTER=tcp://BRW105BAD1C7BB8.local
 # 192.168.1.24
 
 echo $(date +"%T.%3N") "Zu lange Strings abschneiden"
-BARCODE=$(echo $1 | colrm 18)
-ARTIKELNR=$(echo $2 | colrm 18)
+BARCODE=$(echo $1 | colrm 17)
+ARTIKELNR=$(echo $2 | colrm 17)
 NAME=$(echo $3 | colrm 19)
-MENGE=$(echo $4 | colrm 5)
+MENGE=$(echo $4 | colrm 6)
 ME=$(echo $5 | colrm 4)
 ETIKETTEN=$(echo $6 | colrm 3)
 
