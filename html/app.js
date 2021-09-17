@@ -81,7 +81,18 @@ async function printIncoming(){
 
 function print(queryObject){
   const name = queryObject.name.split("&").join("\\&").split("\"").join("\\\"");
-  const command ='./generate-label.sh "' + queryObject.barcode + '" "' + queryObject.artikelnr + '" "'  + name + '" "' + queryObject.menge + '" "' + queryObject.me + '" "' + queryObject.etiketten + '"'
+  let command ='./generate-label.sh "' 
+    + queryObject.barcode + '" "' 
+    + queryObject.artikelnr + '" "'  
+    + name + '" "' 
+    + queryObject.menge + '" "' 
+    + queryObject.me + '" "' 
+    + queryObject.etiketten + '"'
+
+  if (queryObject.vorlage){
+      command += ' "' + queryObject.vorlage + '"'
+  }
+  
   isPrinting = true;
   shell.exec(command,  {silent:true}, function(code, stdout, stderr) {
     log = log.concat('<br>======= COMMAND =============<br>').concat(command).replace(/(?:\r\n|\r|\n)/g, '<br>');

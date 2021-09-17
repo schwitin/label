@@ -25,21 +25,24 @@ MENGE=$(echo $4 | colrm 6)
 ME=$(echo $5 | colrm 4)
 ETIKETTEN=$(echo $6 | colrm 3)
 
+VORLAGE=${7:-etikett_mit_logo}
+
 echo "BARCODE=$BARCODE"
 echo "ARTIKELNR=$ARTIKELNR"
 echo "NAME=$NAME"
 echo "MENGE=$MENGE"
 echo "ME=$ME"
 echo "ETIKETTEN=$ETIKETTEN"
+echo "VORLAGE=$VORLAGE"
 
 
 echo $(date +"%T.%3N") "Platzhalter in HTML eresetzen"
-sed -e  "s^=BARCODE=^$BARCODE^g" -e "s^=ARTIKELNR=^$ARTIKELNR^g" -e "s^=NAME=^$NAME^g" -e "s^=MENGE=^$MENGE^g" -e "s^=ME=^$ME^g" template.html > index.html
+sed -e  "s^=BARCODE=^$BARCODE^g" -e "s^=ARTIKELNR=^$ARTIKELNR^g" -e "s^=NAME=^$NAME^g" -e "s^=MENGE=^$MENGE^g" -e "s^=ME=^$ME^g" $VORLAGE.html > index.html
 
 echo $(date +"%T.%3N") "html2png"
 # phantomjs rasterize.js file://`pwd`/index.html index.png  696px*271px
 # chromium --headless --disable-gpu --screenshot=index.png --window-size=696,271 file://`pwd`/index.html
-wkhtmltoimage  --width 696 --height 271 file://`pwd`/index.html index.png
+wkhtmltoimage  --enable-local-file-access --width 696 file://`pwd`/index.html index.png
 
 # print
 for (( i = 0; i < $ETIKETTEN; i++ )) 
