@@ -11,6 +11,9 @@ const pathToLabels = '/run/user/1000';
 // Verzeichnis mit generierten Dateien freigeben
 app.use(express.static(pathToLabels));
 
+// update
+shell.exec('git pull');
+
 // Alle notwendigen Rersourcen in das Zielverzeichmis (RAM fs) kopiern
 fs.copyFile('JsBarcode.code128.min.js', `${pathToLabels}/JsBarcode.code128.min.js`, (err) => {if(err){throw err}});
 fs.copyFile('etikett_mit_logo.html', `${pathToLabels}/etikett_mit_logo.html`, (err) => {if(err){throw err}});
