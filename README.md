@@ -4,7 +4,7 @@ HTTP-Request -> app.js -> generate-label.sh
 
 ## URL-Struktur
 
-http://beaglebone.local:8181/index.png?barcode=<BARCODE>&artikelnr=<ARTIKELNR>&name=<NAME>&menge=<MENGE>&me=<ME>&etiketten=1
+http://rpi.local:8181/index.png?barcode=<BARCODE>&artikelnr=<ARTIKELNR>&name=<NAME>&menge=<MENGE>&me=<ME>&etiketten=1
 
 
 | Parameter | Anzahl Zeichen| Bemerkung                                                                                                                                                 |
@@ -16,12 +16,10 @@ http://beaglebone.local:8181/index.png?barcode=<BARCODE>&artikelnr=<ARTIKELNR>&n
 | me        | 3             | Mengeneinheit                                                                                                                                             |
 | etiketten | 2             | Anzahl Etiketten, die gedruckt werden müssen. Bei etiketten=0 wird das Etikett generiert, jedoch nicht an den Drucker geschickt (nützlich mit debug=true).|
 | vorlage   | Konstante     | Optional, möglihce Werte sind *etikett_mit_logo* (Standardwert), *etikett_ohne_logo*                                                                      |
-| log       | immer true    | Optional, darf nicht gleichzeitig mit debug verwendet werden. Gibt die Konsolenasugabe des vorherigen Requests zurück.                                    |
-| debug     | immer true    | Optional, darf nicht gleichzeitig mit log verwendet werden. Gibt das von dem vorherigen Request generierte Bild zurück.                                   |
 
 
 
-## Starten
+## Starten (zum Ausprobieren, sonst als Service s.u.)
 
 `node app.js`
 
@@ -29,18 +27,37 @@ http://beaglebone.local:8181/index.png?barcode=<BARCODE>&artikelnr=<ARTIKELNR>&n
 ## Beispiele:
 
 ### Ausdruck eines Etiketts mit Logo
-
-http://beaglebone.local:8181/index.png?barcode=123456789ABCDEFG&artikelnr=123456789ABCDEFG&name=Sechskantschraube123&menge=-9999&me=St.&etiketten=1&vorlage=etikett_mit_logo
+  
+  http://rpi.local:8181/index.png?barcode=123456789ABCDEFG&artikelnr=123456789ABCDEFG&name=Sechskantschraube123&menge=-9999&me=St.&etiketten=1&vorlage=etikett_mit_logo
 
 ### Ausdruck eines Etiketts ohne Logo
 
-http://beaglebone.local:8181/index.png?barcode=123456789ABCDEFG&artikelnr=123456789ABCDEFG&name=Sechskantschraube123&menge=-9999&me=St.&etiketten=0&vorlage=etikett_ohne_logo
+  http://rpi.local:8181/index.png?barcode=123456789ABCDEFG&artikelnr=123456789ABCDEFG&name=Sechskantschraube123&menge=-9999&me=St.&etiketten=0&vorlage=etikett_ohne_logo
 
+### Logausgaben 
 
-### Logausgaben des vorherigen Druckvorgangs
-http://beaglebone.local:8181/index.png?barcode=123456789ABCDEFG&artikelnr=123456789ABCDEFG&name=Sechskantschraube123&menge=-9999&me=St.&etiketten=0&log=true&vorlage=etikett_mit_logo
+  http://rpi.local:8181/log
+  
+### Inhalt des Ausgabeverzeichnisses
 
+  http://rpi.local:8181/ls
+	
 
-### Ausgabe des zuvor generierten Etiketts als PNG-Bild 
-http://beaglebone.local:8181/index.png?barcode=123456789ABCDEFG&artikelnr=123456789ABCDEFG&name=Sechskantschraube123&menge=-9999&me=St.&etiketten=0&debug=true&vorlage=etikett_mit_logo
+# Installation
+	`sudo apt-get install nodejs npm wkhtmltopdf python3-full`
+	`pip install --upgrade brother_ql --break-system-packages`
+	`cd label/html && npm install`
+  `sudo cp label.service /etc/systemd/system/.`
+  `sudo systemctl enable label.service`
+	
+# Start/Stop/Status
+	`sudo systemctl start label.service`
+  `sudo systemctl status label.service`
+  `sudo systemctl stop label.service`
+
+# Logausgaben
+  `journalctl --unit=label.service -n 50 --no-pager`
+	
+# Links
+- RAM fs https://iotassistant.io/raspberry-pi/writing-to-file-on-ram-disk-on-raspberry-pi/
 

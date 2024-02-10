@@ -1,0 +1,15 @@
+[Unit]
+Description=Label Printing Service
+After=multi-user.target
+
+[Service]
+PIDFile=/tmp/label-service-99.pid
+ExecStart=node /home/stalker/label/html/app.js
+Type=simple
+Restart=always
+User=stalker
+Group=stalker
+WorkingDirectory=/home/stalker/label/html
+
+[Install]
+WantedBy=multi-user.target

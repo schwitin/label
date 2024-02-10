@@ -1,112 +1,63 @@
-#!/usr/bin/env node
-
-// https://www.npmjs.com/package/node-static
-// https://nodejs.org/en/knowledge/HTTP/servers/how-to-serve-static-files/
-// https://stackoverflow.com/questions/44647778/how-to-run-shell-script-file-using-nodejs
-// https://nodejs.org/en/knowledge/HTTP/clients/how-to-access-query-string-parameters/
-// https://www.npmjs.com/package/shelljs
-
-const http = require('http');
+const express = require("express");
+const { Worker } = require("worker_threads");
+const shell = require('shelljs');
 const url = require('url');
-const shell = require('shelljs')
-const static = require('node-static');
+const fs = require('fs');
 
-// phantomjs
-// sudo npm -i --save file-url
-// var fileUrl = require('file-url');
-// console.log(fileUrl('template.html'));
+const app = express();
+const port = 8181;
+const pathToLabels = '/run/user/1000';
 
+// Verzeichnis mit generierten Dateien freigeben
+app.use(express.static(pathToLabels));
 
-var file = new(static.Server)();
+// Alle notwendigen Rersourcen in das Zielverzeichmis (RAM fs) kopiern
+fs.copyFile('JsBarcode.code128.min.js', `${pathToLabels}/JsBarcode.code128.min.js`, (err) => {if(err){throw err}});
+fs.copyFile('etikett_mit_logo.html', `${pathToLabels}/etikett_mit_logo.html`, (err) => {if(err){throw err}});
+fs.copyFile('etikett_ohne_logo.html', `${pathToLabels}/etikett_ohne_logo.html`, (err) => {if(err){throw err}});
+fs.copyFile('DejaVuSans-Bold.ttf', `${pathToLabels}/DejaVuSans-Bold.ttf`, (err) => {if(err){throw err}});
+fs.copyFile('logo.png', `${pathToLabels}/logo.png`, (err) => {if(err){throw err}});
+fs.copyFile('impex-trading.svg', `${pathToLabels}/impex-trading.svg`, (err) => {if(err){throw err}});
 
-var queryObjects = [];
-
-// Wir starten die Endlosschleife, die 
-// alle angekommenen Aufträge druckt
-printIncoming();
-var isPrinting = false;
-var log = '';
-
-
-http.createServer(function (req, res) {
+// Generiert Etikett(en) in einem sparaten Thread
+app.get("/index.png", async (req, res) => {
   const queryObject = url.parse(req.url,true).query; 
-  
-  if (queryObject.barcode
-    && queryObject.artikelnr
-    && queryObject.name
-    && queryObject.menge
-    && queryObject.me
-    && queryObject.etiketten
-  ){    
-    if (queryObject.debug){
-      // wir drucken den aktuellen Auftrag
-      // und geben die im vorherigen Request generierte Datei zurück
-      print(queryObject);
-      req.addListener('end', function () {
-        file.serve(req, res);
-      }).resume();
-    }else{
-      // Wir merken den aktuellen Auftrag und geben sofort
-      // HTTP 200 zurück. 
-      queryObjects.push(queryObject);
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      if(queryObject.log){
-        res.write(log);
-      }else{
-        log = '';
-      }
-      res.end();
-    }
-  }else{
-    res.writeHead(400);
-    res.end();
-  }
-
-}).listen(8181);
-
-
-async function printIncoming(){
-  while(true){
-    await sleep(500);
-    if (isPrinting){
-      continue;
-    }
-    const queryObject = queryObjects.shift();
-    if (queryObject){
-      print(queryObject);
-    }    
-  }
-}
-
-
-function print(queryObject){
-  const name = queryObject.name.split("&").join("\\&").split("\"").join("\\\"");
-  let command ='./generate-label.sh "' 
-    + queryObject.barcode + '" "' 
-    + queryObject.artikelnr + '" "'  
-    + name + '" "' 
-    + queryObject.menge + '" "' 
-    + queryObject.me + '" "' 
-    + queryObject.etiketten + '"'
-
-  if (queryObject.vorlage){
-      command += ' "' + queryObject.vorlage + '"'
-  }
-  
-  isPrinting = true;
-  shell.exec(command,  {silent:true}, function(code, stdout, stderr) {
-    log = log.concat('<br>======= COMMAND =============<br>').concat(command).replace(/(?:\r\n|\r|\n)/g, '<br>');
-    log = log.concat('<br>======= EXITCODE ============<br>').concat(code).replace(/(?:\r\n|\r|\n)/g, '<br>');
-    log = log.concat('<br>======= STDOUT ==============<br>').concat(stdout).replace(/(?:\r\n|\r|\n)/g, '<br>');
-    log = log.concat('<br>======= STDERR ==============<br>').concat(stderr).replace(/(?:\r\n|\r|\n)/g, '<br>');    
-    isPrinting = false;
+  // console.log(queryObject);
+  const worker = new Worker("./worker.js", {workerData:queryObject});
+  worker.on("message", (data) => {
+    res.status(200).send('');
   });
-}
+  worker.on("error", (msg) => {
+    console.log(msg);
+    res.status(400).send(`${msg}`);
+  });
+});
 
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// Zeigt letzte 50 Logmeldungen
+app.get("/log", async (req, res) => {
+  
+  const command = "journalctl --unit=label.service -n 50 --no-pager"
+  
+  shell.exec(command,  {silent:true}, function(code, stdout, stderr) {
+    const response = "<html><body><pre>" + stdout + "</pre></body></html>"
+    res.status(200).send(response);
+  });
+});
 
 
+// Zeigt generierte label Dateien als Links
+app.get("/ls", async (req, res) => {
+  
+  const command = `find ${pathToLabels} -name "label-*" -printf "<a href='%f'>%f</a><br>" 2>/dev/null`
+  
+  shell.exec(command,  {silent:true}, function(code, stdout, stderr) {
+    const response = "<html><body><pre>" + stdout + "</pre></body></html>"
+    res.status(200).send(response);
+  });
+});
 
+
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
