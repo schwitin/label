@@ -42,6 +42,18 @@ http://rpi.local:8181/index.png?barcode=<BARCODE>&artikelnr=<ARTIKELNR>&name=<NA
 
   http://rpi.local:8181/ls
 	
+### Durchstarten von label.service (neue Version wird von github bezogen)
+
+  http://rpi.local:8181/restart
+
+### Raspberry PI durchstarten
+
+  http://rpi.local:8181/reboot
+	
+### Raspberry PI herunterfahren
+
+  http://rpi.local:8181/reboot
+	
 
 # Installation
 	`sudo apt-get install nodejs npm wkhtmltopdf python3-full`
