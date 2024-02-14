@@ -61,6 +61,30 @@ app.get("/ls", async (req, res) => {
 });
 
 
+// Startet label.service neu
+app.get("/restart", async (req, res) => {
+  
+  const command = `sudo systemctl restart label.service`
+  
+  shell.exec(command,  {silent:true}, function(code, stdout, stderr) {
+    const response = "<html><body><pre>" + stdout + " " + stderr + "</pre></body></html>"
+    res.status(200).send(response);
+  });
+});
+
+// Startet rpi neu
+app.get("/reboot", async (req, res) => {  
+  const command = `sudo reboot`
+  shell.exec(command);
+});
+
+// Startet fährt rpi herunter
+app.get("/halt", async (req, res) => {  
+  const command = `sudo halt`
+  shell.exec(command);
+});
+
+
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });

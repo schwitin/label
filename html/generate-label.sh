@@ -51,8 +51,7 @@ done
 
 echo $(date +"%T.%3N") "$THREAD_ID Drucke $ETIKETTEN Etiketten"
 echo $(date +"%T.%3N") "$THREAD_ID PRINT_CMD=$PRINT_CMD"
-# $PRINT_CMD
-
+$PRINT_CMD
 echo $(date +"%T.%3N") "$THREAD_ID Loesche alte Etiketten"
 find  /run/user/$UID -name "label-*.png" -mmin +1 -exec rm {} \;
 find  /run/user/$UID -name "label-*.html" -mmin +1 -exec rm {} \;
