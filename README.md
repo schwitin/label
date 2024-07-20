@@ -56,17 +56,21 @@ http://rpi.local:8181/index.png?barcode=<BARCODE>&artikelnr=<ARTIKELNR>&name=<NA
 	
 
 # Installation
-	`sudo apt-get install nodejs npm wkhtmltopdf python3-full`
-	`pip install --upgrade brother_ql --break-system-packages`
-	`cd label/html && npm install`
-  `sudo cp label.service /etc/systemd/system/.`
-  `sudo systemctl enable label.service`
+```
+    sudo apt-get install nodejs npm wkhtmltopdf python3-full
+    pip install --upgrade brother_ql --break-system-packages
+	cd label/html && npm install
+    sudo cp label.service /etc/systemd/system/.
+    sudo systemctl enable label.service
+```
 	
 # Start/Stop/Status
-	`sudo systemctl start label.service`
-  `sudo systemctl status label.service`
-  `sudo systemctl stop label.service`
-
+```
+	sudo systemctl start label.service
+    sudo systemctl status label.service
+    sudo systemctl stop label.service
+```
+Beim start wird auch `git pull` ausgeführt.
 # Logausgaben
   `journalctl --unit=label.service -n 50 --no-pager`
 	
