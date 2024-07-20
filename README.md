@@ -52,7 +52,7 @@ http://rpi.local:8181/index.png?barcode=<BARCODE>&artikelnr=<ARTIKELNR>&name=<NA
 	
 ### Raspberry PI herunterfahren
 
-  http://rpi.local:8181/reboot
+  http://rpi.local:8181/halt
 	
 
 # Installation
