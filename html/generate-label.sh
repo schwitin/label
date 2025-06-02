@@ -43,15 +43,15 @@ sed -e  "s^=BARCODE=^$BARCODE^g" -e "s^=ARTIKELNR=^$ARTIKELNR^g" -e "s^=NAME=^$N
 echo $(date +"%T.%3N") "$THREAD_ID html2png"
 wkhtmltoimage  --enable-local-file-access --width 696 file://$OUTPUT_HTML $OUTPUT_IMAGE 2>/dev/null
 
+PRINT_CMD="$PRINT_CMD $OUTPUT_IMAGE"
+echo $(date +"%T.%3N") "$THREAD_ID Drucke $ETIKETTEN Etiketten"
+echo $(date +"%T.%3N") "$THREAD_ID PRINT_CMD=$PRINT_CMD"
 
 for (( i = 0; i < $ETIKETTEN; i++ ))
 do
-  PRINT_CMD="$PRINT_CMD $OUTPUT_IMAGE"
+	$PRINT_CMD 
 done
 
-echo $(date +"%T.%3N") "$THREAD_ID Drucke $ETIKETTEN Etiketten"
-echo $(date +"%T.%3N") "$THREAD_ID PRINT_CMD=$PRINT_CMD"
-$PRINT_CMD
 echo $(date +"%T.%3N") "$THREAD_ID Loesche alte Etiketten"
 find  /run/user/$UID -name "label-*.png" -mmin +1 -exec rm {} \;
 find  /run/user/$UID -name "label-*.html" -mmin +1 -exec rm {} \;
